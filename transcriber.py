@@ -22,11 +22,15 @@ from urllib.parse import urlparse
 # Function to check if FFmpeg is installed
 def check_ffmpeg():
     try:
-        subprocess.run(["ffmpeg", "-version"], check=True, capture_output=True)
+        result = subprocess.run(["ffmpeg", "-version"], check=True, capture_output=True, text=True)
+        version = result.stdout.split('version')[1].split()[0]
+        print(f"FFmpeg version {version} is installed and accessible.")
         return True
-    except subprocess.CalledProcessError:
+    except subprocess.CalledProcessError as e:
+        print(f"FFmpeg check failed with error: {e}")
         return False
     except FileNotFoundError:
+        print("FFmpeg not found in system PATH. Please install FFmpeg and add it to your system PATH.")
         return False
 
 # Function to download the video from a URL
@@ -91,7 +95,8 @@ if __name__ == "__main__":
     # Git operations
     try:
         subprocess.run(["git", "add", "transcriber.py"], check=True)
-        subprocess.run(["git", "commit", "-m", "Initial commit with transcription script"], check=True)
+        subprocess.run(["git", "commit", "-m", "Update transcription script"], check=True)
         print("Changes committed successfully.")
     except subprocess.CalledProcessError as e:
         print(f"Error during Git operations: {e}")
+        print("You may need to commit changes manually.")
