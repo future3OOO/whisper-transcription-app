@@ -91,12 +91,3 @@ if __name__ == "__main__":
     # input_source = "https://www.example.com/path_to_video.mp4"
     
     handle_transcription(input_source)
-
-    # Git operations
-    try:
-        subprocess.run(["git", "add", "transcriber.py"], check=True)
-        subprocess.run(["git", "commit", "-m", "Update transcription script"], check=True)
-        print("Changes committed successfully.")
-    except subprocess.CalledProcessError as e:
-        print(f"Error during Git operations: {e}")
-        print("You may need to commit changes manually.")
